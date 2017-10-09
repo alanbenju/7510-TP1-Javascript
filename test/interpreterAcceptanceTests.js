@@ -24,6 +24,13 @@ describe("Interpreter", function () {
         "hija(X, Y) :- mujer(X), padre(Y, X)."
     ];
 
+    var db2 = [
+        "varon(juan).",
+        "varon(pepe).",
+        "varon(hect"
+
+    ];
+
     var interpreter = null;
 
     before(function () {
@@ -38,6 +45,9 @@ describe("Interpreter", function () {
         // runs before each test in this block
         interpreter = new Interpreter();
         interpreter.parseDB(db);
+
+        interpreterBad = new Interpreter();
+        interpreterBad.parseDB(db2);
     });
 
     afterEach(function () {
@@ -81,6 +91,22 @@ describe("Interpreter", function () {
         });
         it('hijo(pepe, juan) should be true', function () {
             assert(interpreter.checkQuery('hijo(pepe, juan)'));
+        });
+
+        it('hijo(pepe, jua should be false', function () {
+            assert(interpreter.checkQuery('hijo(pepe, jua') === false);
+        });
+
+
+
+        // TODO: Add more tests
+
+    });
+
+    describe('Interpreter badDB', function () {
+
+        it('hijo(pepe, juan) should be null', function () {
+            assert(interpreterBad.checkQuery('hijo(pepe, juan)') === null);
         });
 
         // TODO: Add more tests
